@@ -34,6 +34,6 @@ public interface RedPacketDao {
      * @param id 红包id
      * @return 红包信息
      */
-//    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id} for update"})
-//    public RedPacket getRedPacketForUpdate(Long id);
+    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id} for update"})
+    public RedPacket getRedPacketForUpdate(Long id);
 }
