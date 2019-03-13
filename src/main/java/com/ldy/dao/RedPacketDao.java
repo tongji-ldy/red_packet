@@ -2,6 +2,7 @@ package com.ldy.dao;
 
 import com.ldy.pojo.RedPacket;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,13 @@ public interface RedPacketDao {
      */
     @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id} for update"})
     public RedPacket getRedPacketForUpdate(Long id);
+
+    /**
+     * 使用版本号抢红包
+     * @param id 红包id
+     * @param version 版本号
+     * @return 更新记录条数
+     */
+    @Update({"update", TABLE_NAME, "set stock = stock - 1, version = version + 1 where id = #{id} and version = #{version}"})
+    public int decreaseRedPacketForVersion(@Param("id") Long id, @Param("version") Long version);//在多个传入时，需要加上@Param("xx")，否则会绑定失败
 }
