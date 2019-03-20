@@ -43,4 +43,15 @@ public class UserRedPacketController {
         return retMap;
     }
 
+    @RequestMapping(value = "/grabRedPacketByRedis")
+    @ResponseBody
+    public Map<String, Object> grabRedPacketByRedis(Long redPacketId, Long userId) {
+        Map<String, Object> resultMap = new HashMap<>();
+        Long result = userRedPacketService.grabRedPacketByRedis(redPacketId, userId);
+        boolean flag = result > 0;
+        resultMap.put("result", flag);
+        resultMap.put("message", flag ? "抢红包成功": "抢红包失败");
+        return resultMap;
+    }
+
 }
